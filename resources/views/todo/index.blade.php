@@ -27,9 +27,11 @@
 
                 <div class="button_part">
                     <template v-for="tag in tagList">
+                        <input type="checkbox" class="checkcheck" @click='checkboxClick(tag.id)'>
                         <div class="chosed_cat">
                             <i :class="tag.class"></i> <span v-text='tag.name'></span>
                         </div>
+                        <br>
                     </template>
                 </div>
             </div>
@@ -103,28 +105,33 @@
             passList: []
         },
         methods: {
+            checkboxClick: function(id) {
+                axios({
+                    method: 'put',
+                    url: '/todo/' + id,
+                }).then(function(res) {
+                    console.log(res);
+                }).catch(function(error) {
+                    console.error(error);
+                });
+            },
             tagEnter: function(input) {
 
                 var vm = this;
                 vm.today.category = vm.today.category ? vm.today.category : 'gaming';
 
-                res = {};
-                res.data = {
-                    items:{
-                        id: 'id_adsf',
-                        category: vm.today.category,
-                        name: vm.today.name
-                    }
-                };
+                axios.post('todo', {
+                    category: vm.today.category,
+                    name: vm.today.name
+                })
+                    .then(function(res) {
+                        res.data.items.class = classMaps[res.data.items.category] ;
+                        var data = {};
+                        data.items = res.data.items;
 
-
-                res.data.items.class = classMaps[res.data.items.category] ;
-
-                var data = {};
-                data.items = res.data.items;
-
-                vm.tagList.push(data.items);
-                vm.today.name = '';
+                        vm.tagList.push(data.items);
+                        vm.today.name = '';
+                    })
             },
             tagModified: function(input) {
                 // body...
