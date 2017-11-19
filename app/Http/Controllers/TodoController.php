@@ -37,12 +37,12 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        auth()->user()->todos()->create([
+        $todos = auth()->user()->todos()->create([
             'name' => $request->name,
             'category' => $request->category,
         ]);
 
-        return response()->success();
+        return response()->success($todos->only('id', 'name', 'category'));
     }
 
     /**
