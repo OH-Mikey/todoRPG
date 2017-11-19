@@ -103,14 +103,13 @@
         methods: {
             tagEnter: function(input) {
                 var vm = this;
-                vm.today.category = vm.today.category ? vm.today.category : 'working';
+                vm.today.category = vm.today.category ? vm.today.category : 'gaming';
 
                 var data = {};
-
                 var tempId = 'id_' + Date.now();
                 data.items = {
                     id: tempId,
-                    category: 'type1',
+                    category: vm.today.category,
                     name: vm.today.name
                 };
 
@@ -119,12 +118,18 @@
 
                 setTimeout(function() {
                     var eachArray = [];
-                    console.log(typeArray);
+
                     for (var i = 0; i < typeArray.length; i++) {
-                        eachArray.push(typeArray[i]);
-                        console.log(typeArray[i].name);
+                        eachArray.push({
+                            name: typeArray[i].name,
+                            value: typeArray[i].value
+                        });
+                        console.log(data.items.category);
+                        if (typeArray[i].name === data.items.category) {
+                            eachArray[i].selected = true;
+                        }
                     }
-                    console.log($('#' + tempId));
+                    console.log(eachArray);
                     $('#' + tempId)
                         .dropdown({
                             values: eachArray.slice()
