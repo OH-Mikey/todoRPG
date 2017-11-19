@@ -5,6 +5,8 @@
 <div id="vueApp">
     <div class="outer_container">
         <div class="_container">
+
+
             <div class="timeline_item today">
                 <span class="timeline_date">11/19</span>
                 <div class="top_part">
@@ -26,7 +28,7 @@
                 <div class="button_part">
                     <template v-for="tag in tagList">
                         <div class="left_part">
-                            <div :class="tag.class" :id='tag.id'>
+                            <div class="ui fluid selection dropdown" :id='tag.id'>
                                 <div class="text"></div>
                                 <i class="dropdown icon"></i>
                             </div>
@@ -39,6 +41,10 @@
                     </template>
                 </div>
             </div>
+
+
+
+
             <div class="timeline_item" v-for='timeline in timelines'>
                 <span class="timeline_date">11/19</span>
                 <div class="button_part">
@@ -82,9 +88,6 @@
                 name: '',
                 category: ''
             },
-            choseList: [
-                'type1', 'type2', 'type3', 'type4', 'type5', 'type6'
-            ],
             tagList: [],
             passList: [{
                 date: '11/879',
@@ -101,7 +104,33 @@
             tagEnter: function(input) {
                 var vm = this;
                 vm.today.category = vm.today.category ? vm.today.category : 'type1';
-                console.log(vm.today.category);
+
+                var data = {};
+                var tempId = 'id_' + Date.now();
+                data.items = {
+                    id: tempId,
+                    category: 'type1',
+                    name: vm.today.name
+                };
+
+                vm.tagList.push(data.items);
+                vm.today.name = '';
+
+                setTimeout(function() {
+                    var eachArray = [];
+                    console.log(typeArray);
+                    for (var i = 0; i < typeArray.length; i++) {
+                        eachArray.push(typeArray[i]);
+                    }
+                    console.log($('#' + tempId));
+                    $('#' + tempId)
+                        .dropdown({
+                            values: eachArray.slice()
+                        });
+                }, 0);
+
+                return;
+
                 axios({
                     method: 'post',
                     url: 'http://d673eff8.ngrok.io/todo',
@@ -109,38 +138,7 @@
                         category: vm.today.category,
                         name: vm.today.name
                     }
-                }).then(function(res) {
-
-                    console.log(res);
-                    console.log(res.data);
-                    return;
-
-                    // var tagId = res.data.items.id;
-                    var tagId = 123;
-                    data.items = {
-                        id: 'id_' + tagId,
-                        category: 'type',
-                        name: vm.today.name,
-                        class: '.ui .dropdown'
-                    };
-
-                    vm.tagList.push(data.items);
-                    vm.today.name = '';
-
-                    setTimeout(function() {
-                        var eachArray = [];
-                        console.log(typeArray);
-                        for (var i = 0; i < typeArray.length; i++) {
-                            eachArray.push(typeArray[i]);
-                        }
-                        console.log($('#' + data.items.id));
-                        $('#' + tagId)
-                            .dropdown({
-                                values: eachArray.slice()
-                            });
-                    }, 0);
-
-                }).catch(function(error) {
+                }).then(function(res) {}).catch(function(error) {
                     console.error(error);
                 });
             },
