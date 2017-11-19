@@ -34,11 +34,11 @@
                 </div>
             </div>
 
-            <div class="timeline_item" v-for='(timeline, i) in timelines' @click='timelineClick(i)'>
+            <div class="timeline_item" v-for='(timeline, i) in timelines' @click='timelineClick(timeline.input, i)'>
                 <span class="timeline_date" v-text='timeline.showDate'></span>
                 <div class="button_part">
                     <div v-for='item in timeline.info.tags'>
-                        <i :class="item.class"></i> <span v-text='item.name'></span>
+                        <i :class="getTypeIcon(item.category)"></i> <span v-text='item.name'></span>
                     </div>
                 </div>
             </div>
@@ -129,38 +129,42 @@
             tagModified: function(input) {
                 // body...
             },
-            timelineClick: function(input) {
+            timelineClick: function(input, key) {
                 var vm = this;
-                res = {};
-                res.data = {
-                    "status": 200,
-                    "items": {
-                        "todos": [{
-                            "id": 11,
-                            "user_id": 1,
-                            "name": "Anjali Veum DDS",
-                            "category": "thinking",
-                            "status": 1,
-                            "created_at": "2017-11-19 05:42:16",
-                            "updated_at": "2017-11-19 05:42:16"
-                        }, {
-                            "id": 12,
-                            "user_id": 1,
-                            "name": "Doyle Dibbert III",
-                            "category": "eating",
-                            "status": 1,
-                            "created_at": "2017-11-19 05:42:16",
-                            "updated_at": "2017-11-19 05:42:16"
-                        }]
-                    }
-                };
-                vm.timelines[input].info = {
-                    tags: res.data.items.todos
-                };
-                for (var i = 0; i < vm.timelines[input].info.tags.length; i++) {
-                    vm.timelines[input].info.tags[i].class = classMaps[vm.timelines[input].info.tags[i].category];
-                }
-                console.log(vm.timelines[input]);
+
+                axios.get('/todo/' + input)
+                    .then(res => {
+                        vm.timelines[key].info = {
+                            tags: res.data.items.todos
+                        };
+                    });
+//                res = {};
+//                res.data = {
+//                    "status": 200,
+//                    "items": {
+//                        "todos": [{
+//                            "id": 11,
+//                            "user_id": 1,
+//                            "name": "Anjali Veum DDS",
+//                            "category": "thinking",
+//                            "status": 1,
+//                            "created_at": "2017-11-19 05:42:16",
+//                            "updated_at": "2017-11-19 05:42:16"
+//                        }, {
+//                            "id": 12,
+//                            "user_id": 1,
+//                            "name": "Doyle Dibbert III",
+//                            "category": "eating",
+//                            "status": 1,
+//                            "created_at": "2017-11-19 05:42:16",
+//                            "updated_at": "2017-11-19 05:42:16"
+//                        }]
+//                    }
+//                };
+
+            },
+            getTypeIcon: function (category) {
+                return classMaps[category];
             }
         },
         watch: {
