@@ -102,6 +102,19 @@
         },
         methods: {
             tagEnter: function(input) {
+                axios({
+                    method: 'post',
+                    url: 'http://d673eff8.ngrok.io/todo',
+                    data: {
+                        category: 'gaming',
+                        name: 'hello'
+                    }
+                }).then(function(res) {
+                    console.log(res);
+                }).catch(function(error) {
+                    console.error(error);
+                });
+
                 var vm = this;
                 vm.today.category = vm.today.category ? vm.today.category : 'gaming';
 
@@ -135,20 +148,6 @@
                             values: eachArray.slice()
                         });
                 }, 0);
-
-                return;
-                axios({
-                    method: 'post',
-                    url: 'http://d673eff8.ngrok.io/todo',
-                    data: {
-                        category: vm.today.category,
-                        name: vm.today.name
-                    }
-                }).then(function(res) {
-
-                }).catch(function(error) {
-                    console.error(error);
-                });
             },
             tagModified: function(input) {
                 // body...
