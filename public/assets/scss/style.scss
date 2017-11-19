@@ -1,0 +1,32 @@
+@import "compass/css3";
+
+* {
+	margin: 0px;
+	padding: 0px
+}
+
+body {
+	@include background(linear-gradient(0deg, snow 1px, #f0f0f0 1px));
+	@include background-size(5px 5px)
+}
+
+.outer_container {
+	width: 100vw;
+	height: calc(100vh - 77px);
+	position: relative;
+	overflow-y: scroll;
+	text-align: center;
+}
+._container {
+	display: inline-block;
+	width: 80%;
+	text-align: left;
+}
+
+.login_modal {
+	width: 300px;
+}
+
+.error_text {
+	color: #ff0063;
+}

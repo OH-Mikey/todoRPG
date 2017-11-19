@@ -1,0 +1,20 @@
+@import "compass/css3";
+
+._content {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    width: 300px;
+    left: 50%;
+    top: 50%;
+    @include transform(translateX(-50%) translateY(-50%));
+
+    .accordion .title {
+        @include transition(opacity .5s);
+    }
+
+    .ui.basic.button {
+        @include transition(all 0.5s);
+    }
+
+}
