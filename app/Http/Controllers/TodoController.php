@@ -35,7 +35,11 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Todo::create([
+            'name' => $request->name,
+        ]);
+
+        return response()->success();
     }
 
     /**
@@ -81,5 +85,12 @@ class TodoController extends Controller
     public function destroy(Todo $todo)
     {
         //
+    }
+
+    public function showByDate(Request $request, $date)
+    {
+        return response()->success([
+            'date' => $date
+        ]);
     }
 }

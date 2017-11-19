@@ -15,7 +15,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Response::macro('success', function ($items) {
+        Response::macro('success', function ($items = []) {
             return Response::make([
                 'status' => HttpResponse::HTTP_OK,
                 'items' => $items
