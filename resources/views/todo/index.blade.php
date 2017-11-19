@@ -110,23 +110,18 @@
                 var vm = this;
                 vm.today.category = vm.today.category ? vm.today.category : 'gaming';
 
-                res = {};
-                res.data = {
-                    items:{
-                        id: 'id_adsf',
-                        category: vm.today.category,
-                        name: vm.today.name
-                    }
-                };
+                axios.post('todo', {
+                    category: vm.today.category,
+                    name: vm.today.name
+                })
+                    .then(function(res) {
+                        res.data.items.class = classMaps[res.data.items.category] ;
+                        var data = {};
+                        data.items = res.data.items;
 
-
-                res.data.items.class = classMaps[res.data.items.category] ;
-
-                var data = {};
-                data.items = res.data.items;
-
-                vm.tagList.push(data.items);
-                vm.today.name = '';
+                        vm.tagList.push(data.items);
+                        vm.today.name = '';
+                    })
             },
             tagModified: function(input) {
                 // body...
