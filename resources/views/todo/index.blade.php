@@ -51,7 +51,6 @@
 
 @endsection
 @section('script')
-<script type="text/javascript" src="/assets/js/timeline.js"></script>
 <script>
     var typeArray = [{
         name: 'type1',

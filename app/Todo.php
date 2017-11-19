@@ -51,3 +51,4 @@ class Todo extends Model
             ->where('category', 'gaming');
     }
 }
+

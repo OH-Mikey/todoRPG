@@ -56,6 +56,12 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
+                                        <a href="{{ route('users.show', auth()->id()) }}">Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('users.analysis', auth()->id()) }}">Analysis</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Todo;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -18,16 +20,6 @@ class TodoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,18 +27,12 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $todos = auth()->user()->todos()->create([
+            'name' => $request->name,
+            'category' => $request->category,
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Todo $todo)
-    {
-        //
+        return response()->success($todos->only('id', 'name', 'category'));
     }
 
     /**
@@ -58,7 +44,7 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        $todo->update(['status', 2]);
+        $todo->update(['status' => 2]);
 
         return response()->success(['updated' => true]);
     }
@@ -71,6 +57,21 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+
+        return response()->success(['deleted' => true]);
+    }
+
+    public function showByDate($date)
+    {
+        $todos = auth()->user()
+            ->todos()
+            ->where('created_at', '>=', (new Carbon($date))->startOfDay())
+            ->where('created_at', '<=', (new Carbon($date))->endOfDay())
+            ->get();
+
+        return response()->success([
+            'todos' => $todos
+        ]);
     }
 }
