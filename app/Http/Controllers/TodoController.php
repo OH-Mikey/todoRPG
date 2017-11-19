@@ -28,8 +28,8 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $todos = auth()->user()->todos()->create([
-            'name' => $request->name,
-            'category' => $request->category,
+            'name' => $request->get('name'),
+            'category' => $request->get('category'),
         ]);
 
         return response()->success($todos->only('id', 'name', 'category'));
