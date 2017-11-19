@@ -16,6 +16,7 @@ class CreateTodosTable extends Migration
         Schema::create('todos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->enum('category', ['gaming', 'working', 'thinking', 'eating', 'reading', 'drinking']);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
