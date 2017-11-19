@@ -102,52 +102,53 @@
         },
         methods: {
             tagEnter: function(input) {
-                axios({
-                    method: 'post',
-                    url: 'http://d673eff8.ngrok.io/todo',
-                    data: {
-                        category: 'gaming',
-                        name: 'hello'
-                    }
-                }).then(function(res) {
-                    console.log(res);
-                }).catch(function(error) {
-                    console.error(error);
-                });
+
 
                 var vm = this;
                 vm.today.category = vm.today.category ? vm.today.category : 'gaming';
 
-                var data = {};
-                var tempId = 'id_' + Date.now();
-                data.items = {
-                    id: tempId,
-                    category: vm.today.category,
-                    name: vm.today.name
-                };
-
-                vm.tagList.push(data.items);
-                vm.today.name = '';
-
-                setTimeout(function() {
-                    var eachArray = [];
-
-                    for (var i = 0; i < typeArray.length; i++) {
-                        eachArray.push({
-                            name: typeArray[i].name,
-                            value: typeArray[i].value
-                        });
-                        console.log(data.items.category);
-                        if (typeArray[i].name === data.items.category) {
-                            eachArray[i].selected = true;
-                        }
+                axios({
+                    method: 'post',
+                    url: 'http://d673eff8.ngrok.io/todo',
+                    data: {
+                        category: vm.today.category,
+                        name: vm.today.name
                     }
-                    console.log(eachArray);
-                    $('#' + tempId)
-                        .dropdown({
-                            values: eachArray.slice()
-                        });
-                }, 0);
+                }).then(function(res) {
+                    console.log(res);
+                    data.items = res.data.items;
+
+                    vm.tagList.push(data.items);
+                    vm.today.name = '';
+
+                    setTimeout(function() {
+                        var eachArray = [];
+
+                        for (var i = 0; i < typeArray.length; i++) {
+                            eachArray.push({
+                                name: typeArray[i].name,
+                                value: typeArray[i].value
+                            });
+                            console.log(data.items.category);
+                            if (typeArray[i].name === data.items.category) {
+                                eachArray[i].selected = true;
+                            }
+                        }
+                        console.log(eachArray);
+                        $('#' + tempId)
+                            .dropdown({
+                                values: eachArray.slice()
+                            });
+                    }, 0);
+                    /*
+                    data.items = {id: tempId, category: vm.today.category, name: vm.today.name };
+*/
+
+                }).catch(function(error) {
+                    console.error(error);
+                });
+
+
             },
             tagModified: function(input) {
                 // body...
