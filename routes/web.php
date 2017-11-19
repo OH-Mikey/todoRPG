@@ -27,10 +27,10 @@ Route::get('categories', 'TodoController@categories')->name('todo.categories');
 Route::match(['PUT', 'PATCH'], 'todo', 'TodoController@update')->name('todo.update');
 
 // user profile
-Route::get('users/profile', 'UserController@profile')->name('users.profile');
-Route::get('users/{user}', 'UserController@show')->name('users.show');
-Route::get('users/achievements', 'UserController@achievements')->name('users.achievements');
+Route::get('users/{user}', 'UserController@show')->name('users.show'); //blade
+Route::get('users/achievements', 'UserController@achievements')->name('users.achievements'); //json
 
 // chart
-Route::get('users/chart', 'UserController@chart')->name('users.chart');
+Route::get('users/{user}/analysis', 'UserController@analysis')->name('users.analysis'); //blade
+Route::get('users/{user}/chart', 'UserController@chart')->name('users.chart'); //json
 
