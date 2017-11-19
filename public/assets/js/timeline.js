@@ -4,9 +4,13 @@ var vm = new Vue({
         loginStatus: true,
         timelines: [],
         today: {
-            tag: 'hello'
+            text: '',
+            categary: ''
         },
-        tagList: []
+        choseList: [
+            'type1', 'type2', 'type3', 'type4', 'type5', 'type6'
+        ],
+        tagList: [],
     },
     created: function() {
         console.log('created');
@@ -14,9 +18,10 @@ var vm = new Vue({
     methods: {
         tagEnter: function(input) {
             this.tagList.push({
-                text: this.today.tag
+                text: this.today.text,
+                class: this.today.categary
             });
-            this.today.tag = '';
+            this.today.text = '';
             console.log('user type enter');
         }
     },
@@ -31,6 +36,8 @@ var vm = new Vue({
         $('.ui.dropdown')
             .dropdown({
                 allowAdditions: true
+            }).on('click', function(input) {
+                console.log(input);
             });
 
         axios({

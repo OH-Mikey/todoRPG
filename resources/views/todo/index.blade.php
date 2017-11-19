@@ -8,36 +8,19 @@
             <div class="timeline_item today">
                 <span class="timeline_date">11/19</span>
                 <div class="top_part">
-                                        <div class="left_part">
+                    <div class="left_part">
                         <div class="ui fluid selection dropdown">
                             <input type="hidden" name="user">
                             <i class="dropdown icon"></i>
-                            <div class="default text">Select Friend</div>
+                            <div class="default text">Chose a categary!</div>
                             <div class="menu">
-                                <div class="item" data-value="jenny">
-                                    Jenny Hess
-                                </div>
-                                <div class="item" data-value="elliot">
-                                    Elliot Fu
-                                </div>
-                                <div class="item" data-value="stevie">
-                                    Stevie Feliciano
-                                </div>
-                                <div class="item" data-value="christian">
-                                    Christian
-                                </div>
-                                <div class="item" data-value="matt">
-                                    Matt
-                                </div>
-                                <div class="item" data-value="justen">
-                                    Justen Kitsune
-                                </div>
+                                <div class="item" data-value="item" v-for='item in choseList' v-text='item'></div>
                             </div>
                         </div>
                     </div>
                     <div class="right_part">
                         <div class="ui left icon input">
-                            <input type="text" placeholder="Search users..." v-model='today.tag'
+                            <input type="text" placeholder="Write some info!" v-model='today.text'
                             @keyup.enter="tagEnter">
                             <i class="users icon"></i>
                         </div>
