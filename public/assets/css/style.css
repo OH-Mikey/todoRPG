@@ -17,27 +17,6 @@ body {
 }
 
 /* line 13, ../scss/style.scss */
-#app > .header {
-  display: inline-block;
-  width: 100vw;
-  height: 36px;
-}
-/* line 18, ../scss/style.scss */
-#app > .header .right_part, #app > .header .left_part {
-  width: 50%;
-}
-/* line 22, ../scss/style.scss */
-#app > .header .right_part {
-  float: right;
-  text-align: right;
-}
-/* line 27, ../scss/style.scss */
-#app > .header .left_part {
-  float: left;
-  text-align: left;
-}
-
-/* line 34, ../scss/style.scss */
 .outer_container {
   width: 100vw;
   height: calc(100vh - 77px);
@@ -46,19 +25,19 @@ body {
   text-align: center;
 }
 
-/* line 41, ../scss/style.scss */
+/* line 20, ../scss/style.scss */
 ._container {
   display: inline-block;
   width: 80%;
   text-align: left;
 }
 
-/* line 47, ../scss/style.scss */
+/* line 26, ../scss/style.scss */
 .login_modal {
   width: 300px;
 }
 
-/* line 51, ../scss/style.scss */
+/* line 30, ../scss/style.scss */
 .error_text {
   color: #ff0063;
 }

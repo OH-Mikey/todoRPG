@@ -10,27 +10,6 @@ body {
 	@include background-size(5px 5px)
 }
 
-#app > .header {
-	display: inline-block;
-	width: 100vw;
-	height: 36px;
-
-	.right_part, .left_part {
-		width: 50%;
-	}
-
-	.right_part {
-		float: right;
-		text-align: right;
-	}
-
-	.left_part {
-		float: left;
-		text-align: left;
-	}
-
-}
-
 .outer_container {
 	width: 100vw;
 	height: calc(100vh - 77px);

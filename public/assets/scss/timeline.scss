@@ -7,18 +7,44 @@ body {
 }
 
 $mainColor: #616161;
+.top_part, .button_part{
+    width: 100%;
+}
 
-.timeline_item{
-    & > *:not(span){
-        width: 50%;
+
+.timeline_item {
+    display: inline-block;
+    .top_part {
         float: left;
-    }
-    .left_part{
+        background-color: pink;
+        display: inline-block;
+        width: 100%;
+        padding: 15px;
+
+        .left_part {
+            float: left;
+            width: 50%;
+
+            .input {
+                width: 100%;
+            }
+
+        }
+
+        .right_part {
+            float: left;
+            width: 50%;
+            padding: 0px 0px 0px 50px;
+        }
 
     }
-    .right_part{
+
+    .button_part {
+        float: left;
+        background-color: green;
         height: 300px;
     }
+
 }
 
 ._container{
