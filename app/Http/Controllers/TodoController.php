@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Todo;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -35,8 +37,9 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        Todo::create([
+        auth()->user()->todos()->create([
             'name' => $request->name,
+            'category' => $request->category,
         ]);
 
         return response()->success();
@@ -87,10 +90,16 @@ class TodoController extends Controller
         //
     }
 
-    public function showByDate(Request $request, $date)
+    public function showByDate($date)
     {
+        $todos = auth()->user()
+            ->todos()
+            ->where('created_at', '>=', (new Carbon($date))->startOfDay())
+            ->where('created_at', '<=', (new Carbon($date))->endOfDay())
+            ->get();
+
         return response()->success([
-            'date' => $date
+            'todos' =>$todos
         ]);
     }
 }
