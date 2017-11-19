@@ -25,6 +25,7 @@ Route::post('todo', 'TodoController@store')->name('todo.store');
 Route::get('categories', 'TodoController@categories')->name('todo.categories');
 
 Route::match(['PUT', 'PATCH'], 'todo', 'TodoController@update')->name('todo.update');
+Route::delete('todo', 'TodoController@destroy')->name('todo.destroy');
 
 // user profile
 Route::get('users/{user}', 'UserController@show')->name('users.show'); //blade
