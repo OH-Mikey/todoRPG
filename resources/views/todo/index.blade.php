@@ -198,6 +198,9 @@
             axios.get('/todo/' + '2017-11-19')
                 .then(res => {
                     vm.tagList = res.data.items.todos.slice();
+                    for (var i = 0; i < vm.tagList.length; i++) {
+                        vm.tagList[i].class = classMaps[vm.tagList[i].category];
+                    }
                 });
 
             $('.ui.dropdown.create')
