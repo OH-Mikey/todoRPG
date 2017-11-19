@@ -58,25 +58,25 @@
 @endsection
 @section('script')
 <script>
+
     var typeArray = [{
-        name: 'type1',
-        value: 'type1',
-        selected: true
+        name: 'gaming',
+        value: 'gaming'
     }, {
-        name: 'type2',
-        value: 'type2'
+        name: 'working',
+        value: 'working'
     }, {
-        name: 'type3',
-        value: 'type3'
+        name: 'thinking',
+        value: 'thinking'
     }, {
-        name: 'type4',
-        value: 'type4'
+        name: 'eating',
+        value: 'eating'
     }, {
-        name: 'type5',
-        value: 'type5'
+        name: 'reading',
+        value: 'reading'
     }, {
-        name: 'type6',
-        value: 'type6'
+        name: 'drinking',
+        value: 'drinking'
     }];
 
     var vm = new Vue({
@@ -103,9 +103,10 @@
         methods: {
             tagEnter: function(input) {
                 var vm = this;
-                vm.today.category = vm.today.category ? vm.today.category : 'type1';
+                vm.today.category = vm.today.category ? vm.today.category : 'working';
 
                 var data = {};
+
                 var tempId = 'id_' + Date.now();
                 data.items = {
                     id: tempId,
@@ -121,6 +122,7 @@
                     console.log(typeArray);
                     for (var i = 0; i < typeArray.length; i++) {
                         eachArray.push(typeArray[i]);
+                        console.log(typeArray[i].name);
                     }
                     console.log($('#' + tempId));
                     $('#' + tempId)
@@ -130,7 +132,6 @@
                 }, 0);
 
                 return;
-
                 axios({
                     method: 'post',
                     url: 'http://d673eff8.ngrok.io/todo',
@@ -138,7 +139,9 @@
                         category: vm.today.category,
                         name: vm.today.name
                     }
-                }).then(function(res) {}).catch(function(error) {
+                }).then(function(res) {
+
+                }).catch(function(error) {
                     console.error(error);
                 });
             },
@@ -154,9 +157,22 @@
         mounted: function() {
             var vm = this;
 
+            var tempArray = [];
+            s = typeArray.slice(0);
+
+            for (var i = 0; i < s.length; i++) {
+                tempArray.push({
+                    name: s[i].name,
+                    value: s[i].value
+                });
+                if (i===0) {
+                    tempArray[i].selected = true;
+                }
+            }
+
             $('.ui.dropdown.create')
                 .dropdown({
-                    values: typeArray.slice()
+                    values: tempArray.slice()
                 }).on('click', function(input) {
                     var obj = input.target,
                     chosed = obj.classList.contains('item');
