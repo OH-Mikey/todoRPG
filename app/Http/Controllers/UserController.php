@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -36,14 +37,28 @@ class UserController extends Controller
     //data
     public function chart(User $user)
     {
-        $finished = $user->todos()->where('status', 2)->count();
+//        $finished = $user->todos()->where('status', 2)->count();
 
-        $staged = $user->todos()->where('status', 1)->count();
+//        $staged = $user->todos()->where('status', 1)->count();
+
+        $dayCounts = $user->todos()
+            ->select(DB::raw('count(*) as count, DATE_FORMAT(created_at, "%Y-%m-%d") as day'))
+            ->where('status', 2)
+            ->groupBy('day')
+            ->get();
+
+        $days = [];
+        $counts = [];
+
+        foreach ($dayCounts as $dayCount) {
+            $days[] = $dayCount->day;
+            $counts[] = $dayCount->count;
+        }
 
         return response()->success([
             'user' => $user,
-            'finished' => $finished,
-            'staged' => $staged,
+            'days' => $days,
+            'counts' => $counts,
         ]);
     }
 }
