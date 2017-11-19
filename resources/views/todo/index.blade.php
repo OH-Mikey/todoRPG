@@ -129,7 +129,9 @@
                         var data = {};
                         data.items = res.data.items;
 
+                        vm.tagList = vm.tagList.reverse();
                         vm.tagList.push(data.items);
+                        vm.tagList = vm.tagList.reverse();
                         vm.today.name = '';
                     })
             },
@@ -201,6 +203,7 @@
                     for (var i = 0; i < vm.tagList.length; i++) {
                         vm.tagList[i].class = classMaps[vm.tagList[i].category];
                     }
+                    vm.tagList = vm.tagList.reverse();
                 });
 
             $('.ui.dropdown.create')
