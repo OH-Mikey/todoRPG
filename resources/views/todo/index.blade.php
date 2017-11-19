@@ -5,6 +5,8 @@
 <div id="vueApp">
     <div class="outer_container">
         <div class="_container">
+
+
             <div class="timeline_item today">
                 <span class="timeline_date">11/19</span>
                 <div class="top_part">
@@ -25,20 +27,14 @@
 
                 <div class="button_part">
                     <template v-for="tag in tagList">
-                        <div class="left_part">
-                            <div :class="tag.class" :id='tag.id'>
-                                <div class="text"></div>
-                                <i class="dropdown icon"></i>
-                            </div>
-                        </div>
-                        <div class="right_part">
-                            <div class="ui left icon input">
-                                <input type="text" placeholder="Write some info!" v-model='tag.name' @keyup.enter="tagModified"><i class="users icon"></i>
-                            </div>
+                        <div :class="tag.category">
+                            <i :class="tag.class"></i> <span v-text='tag.name'></span>
                         </div>
                     </template>
                 </div>
             </div>
+
+
             <div class="timeline_item" v-for='timeline in timelines'>
                 <span class="timeline_date">11/19</span>
                 <div class="button_part">
@@ -52,25 +48,25 @@
 @endsection
 @section('script')
 <script>
+
     var typeArray = [{
-        name: 'type1',
-        value: 'type1',
-        selected: true
+        name: 'gaming',
+        value: 'gaming'
     }, {
-        name: 'type2',
-        value: 'type2'
+        name: 'working',
+        value: 'working'
     }, {
-        name: 'type3',
-        value: 'type3'
+        name: 'thinking',
+        value: 'thinking'
     }, {
-        name: 'type4',
-        value: 'type4'
+        name: 'eating',
+        value: 'eating'
     }, {
-        name: 'type5',
-        value: 'type5'
+        name: 'reading',
+        value: 'reading'
     }, {
-        name: 'type6',
-        value: 'type6'
+        name: 'drinking',
+        value: 'drinking'
     }];
 
     var vm = new Vue({
@@ -82,9 +78,6 @@
                 name: '',
                 category: ''
             },
-            choseList: [
-                'type1', 'type2', 'type3', 'type4', 'type5', 'type6'
-            ],
             tagList: [],
             passList: [{
                 date: '11/879',
@@ -94,55 +87,66 @@
                 }]
             }]
         },
-        created: function() {
-            console.log('created');
-        },
         methods: {
             tagEnter: function(input) {
+
                 var vm = this;
-                vm.today.category = vm.today.category ? vm.today.category : 'type1';
-                console.log(vm.today.category);
-                axios({
-                    method: 'post',
-                    url: 'http://d673eff8.ngrok.io/todo',
-                    data: {
+                vm.today.category = vm.today.category ? vm.today.category : 'gaming';
+
+                res = {};
+                res.data = {
+                    items:{
+                        id: 'id_adsf',
                         category: vm.today.category,
                         name: vm.today.name
                     }
-                }).then(function(res) {
+                };
+                var classMaps = {
+                    gaming: 'icon game',
+                    working: 'icon desktop',
+                    thinking: 'icon comment',
+                    eating: 'icon food',
+                    reading: 'icon book',
+                    drinking: 'icon coffee'
+                };
 
-                    console.log(res);
-                    console.log(res.data);
-                    return;
+                res.data.items.class = classMaps[res.data.items.category] ;
+                /*
+                res.data = {
+                    "status": 200,
+                    "items": {
+                        "todos": [{
+                            "id": 11,
+                            "user_id": 1,
+                            "name": "Anjali Veum DDS",
+                            "category": "thinking",
+                            "status": 1,
+                            "created_at": "2017-11-19 05:42:16",
+                            "updated_at": "2017-11-19 05:42:16"
+                        }, {
+                            "id": 12,
+                            "user_id": 1,
+                            "name": "Doyle Dibbert III",
+                            "category": "eating",
+                            "status": 1,
+                            "created_at": "2017-11-19 05:42:16",
+                            "updated_at": "2017-11-19 05:42:16"
+                        }]
+                    }
+                };
+                */
 
-                    // var tagId = res.data.items.id;
-                    var tagId = 123;
-                    data.items = {
-                        id: 'id_' + tagId,
-                        category: 'type',
-                        name: vm.today.name,
-                        class: '.ui .dropdown'
-                    };
+                console.log(res);
+                var data = {};
+                data.items = res.data.items;
 
-                    vm.tagList.push(data.items);
-                    vm.today.name = '';
+                vm.tagList.push(data.items);
+                vm.today.name = '';
 
-                    setTimeout(function() {
-                        var eachArray = [];
-                        console.log(typeArray);
-                        for (var i = 0; i < typeArray.length; i++) {
-                            eachArray.push(typeArray[i]);
-                        }
-                        console.log($('#' + data.items.id));
-                        $('#' + tagId)
-                            .dropdown({
-                                values: eachArray.slice()
-                            });
-                    }, 0);
+                /*
+                                        data.items = {id: tempId, category: vm.today.category, name: vm.today.name };
+                    */
 
-                }).catch(function(error) {
-                    console.error(error);
-                });
             },
             tagModified: function(input) {
                 // body...
@@ -156,9 +160,22 @@
         mounted: function() {
             var vm = this;
 
+            var tempArray = [];
+            s = typeArray.slice(0);
+
+            for (var i = 0; i < s.length; i++) {
+                tempArray.push({
+                    name: s[i].name,
+                    value: s[i].value
+                });
+                if (i===0) {
+                    tempArray[i].selected = true;
+                }
+            }
+
             $('.ui.dropdown.create')
                 .dropdown({
-                    values: typeArray.slice()
+                    values: tempArray.slice()
                 }).on('click', function(input) {
                     var obj = input.target,
                     chosed = obj.classList.contains('item');
