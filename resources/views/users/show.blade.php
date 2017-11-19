@@ -3,23 +3,38 @@
 @section('content')
     <div class="container">
         <h1>{{ $user->name }}</h1>
-        <div id="vueApp">
-            <i v-show='gaming' :class="gaming"></i>
-            <i v-show='working' :class="working"></i>
-            <i v-show='thinking' :class="thinking"></i>
-            <i v-show='eating' :class="eating"></i>
-            <i v-show='reading' :class="reading"></i>
-            <i v-show='drinking' :class="drinking"></i>
+            <div class="ui card" v-show='gaming'>
+                <i :class="gaming"></i> 遊戲大師
+                <p>玩了 10 次遊戲</p>
+            </div>
+            <div class="ui card" v-show='working'>
+                <i :class="working"></i> 瘋狂工作人
+                <p>專注工作 10 次</p>
+            </div>
+            <div class="ui card" v-show='thinking' style="padding-bottom: 20px">
+                <i :class="thinking"></i> 蘇格拉底
+                <p>我思故我在 10 次</p>
+            </div>
+            <div class="ui card" v-show='eating'>
+                <i :class="eating"></i> 吃貨
+                <p>好好吃了 10 頓飯</p>
+            </div>
+            <div class="ui card" v-show='reading'>
+                <i :class="reading"></i> 書蟲
+                <p>讀了 10 本書</p>
+            </div>
+            <div class="ui card" v-show='drinking'>
+                <i :class="drinking"></i> 天天喝醉
+                <p>喝了 10 杯水</p>
+            </div>
         </div>
-    </div>
 @endsection
 
 @section('script')
-<script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
     <script>
         new Vue({
-            el:"#app",
-            data:{
+            el: "#app",
+            data: {
                 gaming: '',
                 working: '',
                 thinking: '',
@@ -27,16 +42,17 @@
                 reading: '',
                 drinking: ''
             },
-            mounted: function() {
+            mounted: function () {
                 var vm = this;
-                axios.get('users/'+ '{{ auth()->id() }}' +'/achievements')
-                    .then(function(res) {
-                        vm.gaming = res.data.gaming ? 'icon game' : false;
-                        vm.working = res.data.working ? 'icon desktop' : false;
-                        vm.thinking = res.data.thinking ? 'icon comment' : false;
-                        vm.eating = res.data.eating ? 'icon food' : false;
-                        vm.reading = res.data.reading ? 'icon book' : false;
-                        vm.drinking = res.data.drinking ? 'icon coffee' : false;
+                axios.get('{{ auth()->id() }}' + '/achievements')
+                    .then(function (res) {
+                        console.log(res.data.items);
+                        vm.gaming = res.data.items.gaming ? 'icon game huge' : false;
+                        vm.working = res.data.items.working ? 'icon desktop huge' : false;
+                        vm.thinking = res.data.items.thinking ? 'icon comment huge' : false;
+                        vm.eating = res.data.items.eating ? 'icon food huge' : false;
+                        vm.reading = res.data.items.reading ? 'icon book huge' : false;
+                        vm.drinking = res.data.items.drinking ? 'icon coffee huge' : false;
                     });
             }
         });
