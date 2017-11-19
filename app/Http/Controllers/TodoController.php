@@ -58,7 +58,7 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        $todo->update(['status', 2]);
+        $todo->update(['status' => 2]);
 
         return response()->success(['updated' => true]);
     }
