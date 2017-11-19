@@ -103,7 +103,6 @@
         methods: {
             tagEnter: function(input) {
 
-
                 var vm = this;
                 vm.today.category = vm.today.category ? vm.today.category : 'gaming';
 
@@ -136,7 +135,7 @@
                             }
                         }
                         console.log(eachArray);
-                        $('#' + tempId)
+                        $('#' + data.items)
                             .dropdown({
                                 values: eachArray.slice()
                             });
