@@ -1,0 +1,27 @@
+/* line 3, ../scss/index.scss */
+._content {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+  width: 300px;
+  left: 50%;
+  top: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+/* line 12, ../scss/index.scss */
+._content .accordion .title {
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+/* line 16, ../scss/index.scss */
+._content .ui.basic.button {
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}

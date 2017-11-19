@@ -1,0 +1,75 @@
+/* line 3, ../scss/analysis.scss */
+._container {
+  height: 99%;
+  overflow: hidden;
+}
+
+/* line 7, ../scss/analysis.scss */
+.analysis_content {
+  outline: 3px solid red;
+  height: 100%;
+}
+
+/* line 12, ../scss/analysis.scss */
+.tick text {
+  position: relative;
+  -moz-transform: translateX(10px);
+  -ms-transform: translateX(10px);
+  -webkit-transform: translateX(10px);
+  transform: translateX(10px);
+}
+
+/* line 17, ../scss/analysis.scss */
+#offsetId.run {
+  stroke: #000000;
+  stroke-width: 3px;
+  -moz-animation: move 5s forwards;
+  -webkit-animation: move 5s forwards;
+  animation: move 5s forwards;
+}
+
+@-moz-keyframes move {
+  25% {
+    stroke: #2E77BE;
+  }
+  50% {
+    stroke: #ff0063;
+  }
+  75% {
+    stroke: yellow;
+  }
+  100% {
+    stroke: #A1DCD4;
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes move {
+  25% {
+    stroke: #2E77BE;
+  }
+  50% {
+    stroke: #ff0063;
+  }
+  75% {
+    stroke: yellow;
+  }
+  100% {
+    stroke: #A1DCD4;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes move {
+  25% {
+    stroke: #2E77BE;
+  }
+  50% {
+    stroke: #ff0063;
+  }
+  75% {
+    stroke: yellow;
+  }
+  100% {
+    stroke: #A1DCD4;
+    stroke-dashoffset: 0;
+  }
+}
