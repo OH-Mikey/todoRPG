@@ -27,9 +27,11 @@
 
                 <div class="button_part">
                     <template v-for="tag in tagList">
+                        <input type="checkbox" class="checkcheck">
                         <div class="chosed_cat">
                             <i :class="tag.class"></i> <span v-text='tag.name'></span>
                         </div>
+                        <br>
                     </template>
                 </div>
             </div>

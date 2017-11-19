@@ -42,11 +42,25 @@ $mainColor: #616161;
         width: 100%;
         padding: 15px;
 
+        .checkcheck{
+            width: 24px;
+            height: 24px;
+        }
+        input[type=checkbox]:checked {
+            pointer-events: none;
+            & + .chosed_cat{
+                pointer-events: none;
+                opacity: 0.5;
+            }
+        }
         .chosed_cat{
+            display: inline-block;
             height: 36px;
             margin: 3px 0px;
             line-height: 36px;
             font-size: 24px;
+
+
         }
 
     }
