@@ -28,7 +28,7 @@ Route::match(['PUT', 'PATCH'], 'todo', 'TodoController@update')->name('todo.upda
 
 // user profile
 Route::get('users/{user}', 'UserController@show')->name('users.show'); //blade
-Route::get('users/achievements', 'UserController@achievements')->name('users.achievements'); //json
+Route::get('users/{user}/achievements', 'UserController@achievements')->name('users.achievements'); //json
 
 // chart
 Route::get('users/{user}/analysis', 'UserController@analysis')->name('users.analysis'); //blade
