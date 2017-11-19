@@ -38,9 +38,26 @@ $mainColor: #616161;
     }
 
     .button_part {
-        padding: 15px;
         float: left;
-        background-color: green;
+        background-color: pink;
+        display: inline-block;
+        width: 100%;
+        padding: 15px;
+
+        .left_part {
+            float: left;
+            width: 30%;
+        }
+
+        .right_part {
+            float: left;
+            width: 50%;
+            margin-left: 5%;
+            .input{
+                width: 100%;
+            }
+        }
+
     }
 
 }
