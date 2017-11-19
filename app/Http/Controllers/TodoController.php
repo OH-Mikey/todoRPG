@@ -20,16 +20,6 @@ class TodoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -43,17 +33,6 @@ class TodoController extends Controller
         ]);
 
         return response()->success($todos->only('id', 'name', 'category'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Todo $todo)
-    {
-        //
     }
 
     /**
@@ -92,7 +71,7 @@ class TodoController extends Controller
             ->get();
 
         return response()->success([
-            'todos' =>$todos
+            'todos' => $todos
         ]);
     }
 }
