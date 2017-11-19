@@ -195,6 +195,11 @@
                 }
             }
 
+            axios.get('/todo/' + '2017-11-19')
+                .then(res => {
+                    vm.tagList = res.data.items.todos.slice();
+                });
+
             $('.ui.dropdown.create')
                 .dropdown({
                     values: tempArray.slice()
