@@ -8,14 +8,7 @@
             <div class="timeline_item today">
                 <span class="timeline_date">11/19</span>
                 <div class="top_part">
-                    <div class="left_part">
-                        <div class="ui left icon input">
-                            <input type="text" placeholder="Search users..." v-model='today.tag'
-                            @keyup.enter="tagEnter">
-                            <i class="users icon"></i>
-                        </div>
-                    </div>
-                    <div class="right_part">
+                                        <div class="left_part">
                         <div class="ui fluid selection dropdown">
                             <input type="hidden" name="user">
                             <i class="dropdown icon"></i>
@@ -40,6 +33,13 @@
                                     Justen Kitsune
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="right_part">
+                        <div class="ui left icon input">
+                            <input type="text" placeholder="Search users..." v-model='today.tag'
+                            @keyup.enter="tagEnter">
+                            <i class="users icon"></i>
                         </div>
                     </div>
                 </div>

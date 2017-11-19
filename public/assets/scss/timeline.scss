@@ -23,18 +23,16 @@ $mainColor: #616161;
 
         .left_part {
             float: left;
-            width: 50%;
-
-            .input {
-                width: 100%;
-            }
-
+            width: 30%;
         }
 
         .right_part {
             float: left;
-            width: 50%;
-            padding: 0px 0px 0px 50px;
+            width: 65%;
+            margin-left: 5%;
+            .input{
+                width: 100%;
+            }
         }
 
     }

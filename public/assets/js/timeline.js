@@ -33,8 +33,6 @@ var vm = new Vue({
                 allowAdditions: true
             });
 
-            
-
         axios({
             method: 'get',
             url: '/',
