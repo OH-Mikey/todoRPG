@@ -116,6 +116,7 @@
                     }
                 }).then(function(res) {
                     console.log(res);
+                    var data = {};
                     data.items = res.data.items;
 
                     vm.tagList.push(data.items);
