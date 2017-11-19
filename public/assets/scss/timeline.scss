@@ -1,0 +1,75 @@
+@import "compass/css3";
+
+body {
+    width: 100vw;
+    text-align: center;
+    @include box-sizing(border-box);
+}
+
+$mainColor: #616161;
+
+.timeline_item{
+    & > *:not(span){
+        width: 50%;
+        float: left;
+    }
+    .left_part{
+
+    }
+    .right_part{
+        height: 300px;
+    }
+}
+
+._container{
+    text-align: right;
+}
+
+.timeline_item {
+    $timelineMargin: 20px;
+    $timelineWidth: 3px;
+    $timelineX: -10%;
+    $timelineCircle: 5;
+    $timelineTop: 20%;
+
+    margin: $timelineMargin 0px;
+    width: 90%;
+    display: inline-block;
+    position: relative;
+    border-radius: 5px;
+    text-align: left;
+    @include box-shadow(2px 2px 3px 2px $mainColor);
+
+    &:after, &:before, .timeline_date {
+        content: "";
+        display: block;
+        position: absolute;
+        left: $timelineX;
+    }
+
+    .timeline_date{
+        display: inline;
+        top: calc(#{$timelineTop} - #{$timelineWidth});
+        left: calc(#{$timelineX} + #{$timelineWidth * ($timelineCircle - 1)});
+    }
+
+    &:before {
+        top: 0px;
+        background-color: $mainColor;
+        width: $timelineWidth;
+        height: calc(100% + #{$timelineMargin * 2.2});
+    }
+
+    &:after {
+        width: $timelineWidth * $timelineCircle;
+        height: $timelineWidth * $timelineCircle;
+        border-radius: 50%;
+
+        top: $timelineTop;
+        left: calc(#{$timelineX} - #{$timelineWidth * ($timelineCircle - 1) / 2});
+
+        border: 3px solid $mainColor;
+        background-color: white;
+    }
+
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+        <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="/semantic/dist/semantic.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/timeline.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="app">
+            <component-header :login-status="loginStatus"></component-header>
+            <div class="outer_container">
+                <div class="_container">
+                    <div class="timeline_item" v-for='timeline in timelines'>
+                        <span class="timeline_date">11/19</span>
+                        <div class="top_part">
+                            <div class="left_part">
+                                <div class="ui left icon input">
+                                    <input type="text" placeholder="Search users...">
+                                    <i class="users icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button_part">
+                            <div class="right_part">hello</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<template id="component_header">
+<div class="header">
+    <div class="left_part">
+        <div v-show='loginStatus'>
+            <a href="/profile.html"><button class="ui basic button">Profile</button></a>
+            <a href="/timeline.html"><button class="ui basic button">Timeline</button></a>
+            <a href="/analysis.html"><button class="ui basic button">Analysis</button></a>
+        </div>
+    </div>
+    <div class="right_part">
+        <div class="ui buttons not_login" v-show='!loginStatus'>
+            <button class="ui basic button" @click='registerBtnTrigger'>Register</button>
+            <div class="or"></div>
+            <button class="ui basic button" @click='loginBtnTrigger'>Sign In</button>
+        </div>
+        <div class="ui login" v-show='loginStatus'>
+            <button class="ui basic button" @click='logout'>logout</button>
+        </div>
+    </div>
+</div>
+</template>
+<script type="text/javascript" src="/assets/components/component_header.js"></script>
+<script type="text/javascript" src="/assets/js/timeline.js"></script>
