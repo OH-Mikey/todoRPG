@@ -27,22 +27,12 @@
 
                 <div class="button_part">
                     <template v-for="tag in tagList">
-                        <div class="left_part">
-                            <div class="ui fluid selection dropdown" :id='tag.id'>
-                                <div class="text"></div>
-                                <i class="dropdown icon"></i>
-                            </div>
-                        </div>
-                        <div class="right_part">
-                            <div class="ui left icon input">
-                                <input type="text" placeholder="Write some info!" v-model='tag.name' @keyup.enter="tagModified"><i class="users icon"></i>
-                            </div>
+                        <div :class="tag.category">
+                            <i :class="tag.class"></i> <span v-text='tag.name'></span>
                         </div>
                     </template>
                 </div>
             </div>
-
-
 
 
             <div class="timeline_item" v-for='timeline in timelines'>
@@ -97,57 +87,65 @@
                 }]
             }]
         },
-        created: function() {
-            console.log('created');
-        },
         methods: {
             tagEnter: function(input) {
 
                 var vm = this;
                 vm.today.category = vm.today.category ? vm.today.category : 'gaming';
 
-                axios({
-                    method: 'post',
-                    url: 'http://d673eff8.ngrok.io/todo',
-                    data: {
+                res = {};
+                res.data = {
+                    items:{
+                        id: 'id_adsf',
                         category: vm.today.category,
                         name: vm.today.name
                     }
-                }).then(function(res) {
-                    console.log(res);
-                    var data = {};
-                    data.items = res.data.items;
+                };
+                var classMaps = {
+                    gaming: 'icon game',
+                    working: 'icon desktop',
+                    thinking: 'icon comment',
+                    eating: 'icon food',
+                    reading: 'icon book',
+                    drinking: 'icon coffee'
+                };
 
-                    vm.tagList.push(data.items);
-                    vm.today.name = '';
+                res.data.items.class = classMaps[res.data.items.category] ;
+                /*
+                res.data = {
+                    "status": 200,
+                    "items": {
+                        "todos": [{
+                            "id": 11,
+                            "user_id": 1,
+                            "name": "Anjali Veum DDS",
+                            "category": "thinking",
+                            "status": 1,
+                            "created_at": "2017-11-19 05:42:16",
+                            "updated_at": "2017-11-19 05:42:16"
+                        }, {
+                            "id": 12,
+                            "user_id": 1,
+                            "name": "Doyle Dibbert III",
+                            "category": "eating",
+                            "status": 1,
+                            "created_at": "2017-11-19 05:42:16",
+                            "updated_at": "2017-11-19 05:42:16"
+                        }]
+                    }
+                };
+                */
 
-                    setTimeout(function() {
-                        var eachArray = [];
+                console.log(res);
+                var data = {};
+                data.items = res.data.items;
 
-                        for (var i = 0; i < typeArray.length; i++) {
-                            eachArray.push({
-                                name: typeArray[i].name,
-                                value: typeArray[i].value
-                            });
-                            console.log(data.items.category);
-                            if (typeArray[i].name === data.items.category) {
-                                eachArray[i].selected = true;
-                            }
-                        }
-                        console.log(eachArray);
-                        $('#' + data.items)
-                            .dropdown({
-                                values: eachArray.slice()
-                            });
-                    }, 0);
-                    /*
-                    data.items = {id: tempId, category: vm.today.category, name: vm.today.name };
-*/
+                vm.tagList.push(data.items);
+                vm.today.name = '';
 
-                }).catch(function(error) {
-                    console.error(error);
-                });
-
+                /*
+                                        data.items = {id: tempId, category: vm.today.category, name: vm.today.name };
+                    */
 
             },
             tagModified: function(input) {
