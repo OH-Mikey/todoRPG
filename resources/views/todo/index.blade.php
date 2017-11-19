@@ -27,18 +27,19 @@
 
                 <div class="button_part">
                     <template v-for="tag in tagList">
-                        <div :class="tag.category">
+                        <div class="chosed_cat">
                             <i :class="tag.class"></i> <span v-text='tag.name'></span>
                         </div>
                     </template>
                 </div>
             </div>
 
-
-            <div class="timeline_item" v-for='timeline in timelines'>
-                <span class="timeline_date">11/19</span>
+            <div class="timeline_item" v-for='(timeline, i) in timelines' @click='timelineClick(i)'>
+                <span class="timeline_date" v-text='timeline.showDate'></span>
                 <div class="button_part">
-                    <li v-for="tag in passList" v-text="tag.name"></li>
+                    <div v-for='item in timeline.info.tags'>
+                        <i :class="item.class"></i> <span v-text='item.name'></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,6 +49,14 @@
 @endsection
 @section('script')
 <script>
+    var classMaps = {
+        gaming: 'icon game',
+        working: 'icon desktop',
+        thinking: 'icon comment',
+        eating: 'icon food',
+        reading: 'icon book',
+        drinking: 'icon coffee'
+    };
 
     var typeArray = [{
         name: 'gaming',
@@ -73,19 +82,25 @@
         el: "#vueApp",
         data: {
             loginStatus: true,
-            timelines: [],
+            timelines: [{
+                input: '2017-11-18',
+                showDate: '11/18',
+                info: {}
+            }, {
+                input: '2017-11-17',
+                showDate: '11/17',
+                info: {}
+            }, {
+                input: '2017-11-16',
+                showDate: '11/16',
+                info: {}
+            }],
             today: {
                 name: '',
                 category: ''
             },
             tagList: [],
-            passList: [{
-                date: '11/879',
-                tagList: [{
-                    type: 'something',
-                    name: 'hello'
-                }]
-            }]
+            passList: []
         },
         methods: {
             tagEnter: function(input) {
@@ -101,17 +116,22 @@
                         name: vm.today.name
                     }
                 };
-                var classMaps = {
-                    gaming: 'icon game',
-                    working: 'icon desktop',
-                    thinking: 'icon comment',
-                    eating: 'icon food',
-                    reading: 'icon book',
-                    drinking: 'icon coffee'
-                };
+
 
                 res.data.items.class = classMaps[res.data.items.category] ;
-                /*
+
+                var data = {};
+                data.items = res.data.items;
+
+                vm.tagList.push(data.items);
+                vm.today.name = '';
+            },
+            tagModified: function(input) {
+                // body...
+            },
+            timelineClick: function(input) {
+                var vm = this;
+                res = {};
                 res.data = {
                     "status": 200,
                     "items": {
@@ -134,22 +154,13 @@
                         }]
                     }
                 };
-                */
-
-                console.log(res);
-                var data = {};
-                data.items = res.data.items;
-
-                vm.tagList.push(data.items);
-                vm.today.name = '';
-
-                /*
-                                        data.items = {id: tempId, category: vm.today.category, name: vm.today.name };
-                    */
-
-            },
-            tagModified: function(input) {
-                // body...
+                vm.timelines[input].info = {
+                    tags: res.data.items.todos
+                };
+                for (var i = 0; i < vm.timelines[input].info.tags.length; i++) {
+                    vm.timelines[input].info.tags[i].class = classMaps[vm.timelines[input].info.tags[i].category];
+                }
+                console.log(vm.timelines[input]);
             }
         },
         watch: {
@@ -183,28 +194,6 @@
                         vm.today.category = obj.innerHTML;
                     }
                 });
-
-            axios({
-                method: 'get',
-                url: '/',
-            }).then(function(res) {
-                for (var i = 0; i < 1; i++) {
-                    vm.timelines.push(i);
-                }
-            }).catch(function(error) {
-                console.error(error);
-            });
-
-
-            return;
-
-            $(".outer_container").scroll(function(event) {
-                if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
-                    for (var i = 0; i < 4; i++) {
-                        vm.timelines.push(i);
-                    }
-                }
-            });
         }
     });
 </script>

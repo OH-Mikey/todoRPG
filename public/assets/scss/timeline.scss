@@ -16,7 +16,6 @@ $mainColor: #616161;
     display: inline-block;
     .top_part {
         float: left;
-        background-color: pink;
         display: inline-block;
         width: 100%;
         padding: 15px;
@@ -43,18 +42,11 @@ $mainColor: #616161;
         width: 100%;
         padding: 15px;
 
-        .left_part {
-            float: left;
-            width: 30%;
-        }
-
-        .right_part {
-            float: left;
-            width: 50%;
-            margin-left: 5%;
-            .input{
-                width: 100%;
-            }
+        .chosed_cat{
+            height: 36px;
+            margin: 3px 0px;
+            line-height: 36px;
+            font-size: 24px;
         }
 
     }
@@ -74,11 +66,16 @@ $mainColor: #616161;
 
     margin: $timelineMargin 0px;
     width: 90%;
+    min-height: 40px;
     display: inline-block;
     position: relative;
     border-radius: 5px;
     text-align: left;
     @include box-shadow(2px 2px 3px 2px $mainColor);
+
+    &:not(.today){
+        cursor: pointer;
+    }
 
     &:after, &:before, .timeline_date {
         content: "";
