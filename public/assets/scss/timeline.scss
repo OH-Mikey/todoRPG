@@ -1,0 +1,126 @@
+@import "compass/css3";
+
+body {
+    width: 100vw;
+    text-align: center;
+    @include box-sizing(border-box);
+}
+
+$mainColor: #616161;
+.top_part, .button_part{
+    width: 100%;
+}
+
+
+.timeline_item {
+    display: inline-block;
+    .top_part {
+        float: left;
+        display: inline-block;
+        width: 100%;
+        padding: 15px;
+
+        .left_part {
+            float: left;
+            width: 30%;
+        }
+
+        .right_part {
+            float: left;
+            width: 65%;
+            margin-left: 5%;
+            .input{
+                width: 100%;
+            }
+        }
+
+    }
+
+    .button_part {
+        float: left;
+        display: inline-block;
+        width: 100%;
+        padding: 15px;
+
+        .checkcheck{
+            width: 24px;
+            height: 24px;
+        }
+        input[type=checkbox]:checked {
+            pointer-events: none;
+            & + .chosed_cat{
+                pointer-events: none;
+                opacity: 0.5;
+            }
+        }
+        .chosed_cat{
+            display: inline-block;
+            height: 36px;
+            margin: 3px 0px;
+            line-height: 36px;
+            font-size: 24px;
+
+
+        }
+
+    }
+
+}
+
+._container{
+    text-align: right;
+}
+
+.timeline_item {
+    $timelineMargin: 20px;
+    $timelineWidth: 3px;
+    $timelineX: -10%;
+    $timelineCircle: 5;
+    $timelineTop: 20%;
+
+    margin: $timelineMargin 0px;
+    width: 90%;
+    min-height: 40px;
+    display: inline-block;
+    position: relative;
+    border-radius: 5px;
+    text-align: left;
+    @include box-shadow(2px 2px 3px 2px $mainColor);
+
+    &:not(.today){
+        cursor: pointer;
+    }
+
+    &:after, &:before, .timeline_date {
+        content: "";
+        display: block;
+        position: absolute;
+        left: $timelineX;
+    }
+
+    .timeline_date{
+        display: inline;
+        top: calc(#{$timelineTop} - #{$timelineWidth});
+        left: calc(#{$timelineX} + #{$timelineWidth * ($timelineCircle - 1)});
+    }
+
+    &:before {
+        top: 0px;
+        background-color: $mainColor;
+        width: $timelineWidth;
+        height: calc(100% + #{$timelineMargin * 2.2});
+    }
+
+    &:after {
+        width: $timelineWidth * $timelineCircle;
+        height: $timelineWidth * $timelineCircle;
+        border-radius: 50%;
+
+        top: $timelineTop;
+        left: calc(#{$timelineX} - #{$timelineWidth * ($timelineCircle - 1) / 2});
+
+        border: 3px solid $mainColor;
+        background-color: white;
+    }
+
+}
