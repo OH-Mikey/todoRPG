@@ -27,7 +27,7 @@
 
                 <div class="button_part">
                     <template v-for="tag in tagList">
-                        <input type="checkbox" class="checkcheck">
+                        <input type="checkbox" class="checkcheck" @click='checkboxClick(tag.id)'>
                         <div class="chosed_cat">
                             <i :class="tag.class"></i> <span v-text='tag.name'></span>
                         </div>
@@ -105,6 +105,16 @@
             passList: []
         },
         methods: {
+            checkboxClick: function(id) {
+                axios({
+                    method: 'put',
+                    url: '/todo/' + id,
+                }).then(function(res) {
+                    console.log(res);
+                }).catch(function(error) {
+                    console.error(error);
+                });
+            },
             tagEnter: function(input) {
 
                 var vm = this;
